@@ -1,15 +1,16 @@
 require("dotenv").config();
 const express = require("express");
 const app = express();
+const cors = require("cors");
 const db = require("./db");
 
 app.use(express.json());
-
+app.use(cors());
 app.get("/tasks", async (req, res) => {
   try {
     const result = await db.query("select * from tasks");
 
-    res.status(200).json({ data: { tasks: result.rows } });
+    res.status(200).json({ tasks: result.rows });
   } catch (err) {
     err;
   }
@@ -21,7 +22,7 @@ app.get("/tasks/:id", async (req, res) => {
       req.params.id,
     ]);
 
-    res.status(200).json({ data: { task: result.rows[0] } });
+    res.status(200).json({ task: result.rows[0] });
   } catch (err) {
     err;
   }
@@ -64,5 +65,5 @@ app.delete("/tasks/:id", async (req, res) => {
 const port = process.env.PORT || 3001;
 
 app.listen(port, () => {
-  console.log(`server isa listening on port ${port}`);
+  console.log(`server is listening on port ${port}`);
 });
