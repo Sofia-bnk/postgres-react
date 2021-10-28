@@ -21,7 +21,7 @@ function AddTask() {
   return (
     <div className="mb-5">
       <form action="">
-        <div className="form-row">
+        <div className="form-group">
           <div className="col mb-1">
             <input
               type="text"

@@ -1,11 +1,13 @@
 import React, { useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
+
 import axios from "axios";
 import TasksContext from "../context/TasksContext";
+import { useHistory } from "react-router";
 
 function TasksList() {
   const { tasks, setTasks } = useContext(TasksContext);
 
+  let history = useHistory();
   useEffect(fetchTasks, [setTasks]);
 
   function fetchTasks() {
@@ -28,6 +30,10 @@ function TasksList() {
       })
     );
   };
+
+  const handleUpdate = (id) => {
+    history.push(`/task/${id}/update`);
+  };
   return (
     <div className="list-group">
       <table className="table table-hover table-dark">
@@ -44,13 +50,16 @@ function TasksList() {
           {tasks &&
             tasks.map((task) => (
               <tr key={task.id}>
-                <td>
-                  <Link to={`/task/:id`}>{task.task}</Link>
-                </td>
+                <td>{task.task}</td>
                 <td>{task.day}</td>
                 <td>{task.task_date}</td>
                 <td>
-                  <button className="btn btn-warning">Update</button>
+                  <button
+                    className="btn btn-warning"
+                    onClick={() => handleUpdate(task.id)}
+                  >
+                    Update
+                  </button>
                 </td>
                 <td>
                   <button

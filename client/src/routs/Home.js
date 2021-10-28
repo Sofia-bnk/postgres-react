@@ -6,7 +6,7 @@ import TasksList from "../components/TasksList";
 export const Home = () => {
   return (
     <div>
-      <Header />
+      <Header title="Tasks Table" />
       <AddTask />
       <TasksList />
     </div>
